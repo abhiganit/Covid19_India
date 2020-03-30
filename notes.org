@@ -1,0 +1,10 @@
+* Add contact matrix of India to code
+  - All
+  - Home
+  - Work
+  - Schools
+  - Others
+
+* Add population demographics from each state in India
+* Adjust code to incorporate contact matrices and demographics of states
+* Run model for each state
