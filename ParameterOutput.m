@@ -1,4 +1,4 @@
-function [beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State)
+function [beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,lockdown)
 %% PARAMETEROUTPUT returns the parameters based on the number of age classes
 %specified in the model
 % Input
@@ -36,6 +36,6 @@ psiH = 1/10;
 mc= 0.1396;
 mueC= 1/7;
 psiC= 1/13.25;
-[M,M2,P]=DemoIndia(Amin,State);
+[M,M2,P]=DemoIndia(Amin,State,lockdown);
 beta=CalcR0(R0E,P,sigma,h,gamma,delta,M);
 end

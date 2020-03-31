@@ -1,4 +1,4 @@
-function [M,M2,P] = DemoIndia(Amin,State)
+function [M,M2,P] = DemoIndia(Amin,State,lockdown)
 % Returns contact matrix for community and home absed on specified
 % compression
 % Input
@@ -45,7 +45,11 @@ gg=find(AA==Amin(end));
 hh=find(AA==80);
 F80indx{ii+1}=[gg:(hh-1)];
 
-MFull = Contacts.All;
+if lockdown == 0
+    MFull = Contacts.All;
+else
+    MFull = Contacts.Home;
+end
 M2Full = Contacts.Home;
 
 % Convert Population and Contact matrices to match with number of

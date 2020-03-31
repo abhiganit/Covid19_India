@@ -3,7 +3,7 @@ function dxdt = SODE(t,x,beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc
 % System of ODE to run the model for vaccination and contact tracing
 %% Input parameters
 %t - time variable
-%x - State variable 
+%x - State variable
 %     S=[1:A]; % Susceptible
 %     E=A+[1:A]; % Incubation
 %     IH=2*A+[1:A]; %Symptomatic and will be hospitalized
@@ -61,4 +61,3 @@ dxdt(C)=c.*delta.*x(QH)+c.*delta.*x(IH)-(1-mc).*psiC.*x(C)-mc.*mueC.*x(C);
 
 
 end
-
