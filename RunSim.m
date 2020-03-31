@@ -7,7 +7,7 @@ A=length(Amin);
 % Reproduction number (Change this to assume different R0)
 R0E=1.7;
 % State to run
-State = 'RAJASTHAN';
+State = 'India';
 
 %% Set up initial conditions
 % Get parameters
@@ -15,8 +15,8 @@ State = 'RAJASTHAN';
 
 IC=zeros(8*A,1);
 IC(1:A)=P;  % Susceptible population
-IC(2)=IC(2)-5;  % Seeding number of infections from age-group 2
-IC(A+2)=5;  % Seeding number of infections
+IC(2)=IC(2)-1;  % Seeding number of infections from age-group 2
+IC(A+2)=1;  % Seeding number of infections
 
 
 %% Run model
@@ -34,22 +34,21 @@ tl = 700; % total time to run
 % Run initial period without 21 days lockdown
 tbl = 20; % time before lockdown
 [TM1,YM1]=ode15s(@(t,y)SODE(t,y,beta,sigma,tau,M,M2,gamma,q,h,f,c,...
-                            delta,mh,mueH,psiH,mc,mueC,psiC,P,A),...
-                 [0:tbl],IC,options);
-
+                             delta,mh,mueH,psiH,mc,mueC,psiC,P,A),...
+                  [0:tbl],IC,options);
 % Run 21 days lockdown
 % Get parameters with lockdown
-[beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,1);
-
+%[beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,1);
+[Mx,M2x,Px] = DemoIndia(Amin,State,1)
 IC = YM1(end,:);
 ttl = 21; % time till lockdown
-[TM2,YM2] = ode15s(@(t,y)SODE(t,y,beta,sigma,tau,M,M2,gamma,q,h,f,c,...
+[TM2,YM2] = ode15s(@(t,y)SODE(t,y,beta,sigma,tau,Mx,M2x,gamma,q,h,f,c,...
                              delta,mh,mueH,psiH,mc,mueC,psiC,P,A),...
                   [tbl:tbl+ttl],IC,options);
 
 % Run after lockdown
 % Get parameters with lockdown
-[beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,0);
+%[beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,0);
 IC = YM2(end,:);
 tal = 659;
 [TM3,YM3] = ode15s(@(t,y)SODE(t,y,beta,sigma,tau,M,M2,gamma,q,h,f,c,...
@@ -77,24 +76,24 @@ C=7*A+[1:A]; % Not quaratined previosuly to hosptial and non-vaccinated
 
 %% Plots
 fig = figure('position',[300,200,900,1200])
-
+a = 1; b = 700;
 subplot(3,1,1);
-plot(TM0(15:50),sum(YM0(15:50,[IH IN])/1000000,2),'k','LineWidth',2.5); hold on;
-plot(TM(15:50),sum(YM(15:50,[IH IN])/1000000,2),'r','LineWidth',2.5); hold on;
+plot(TM0(a:b),sum(YM0(a:b,[IH IN])/1000000,2),'k','LineWidth',2.5); hold on;
+plot(TM(a:b),sum(YM(a:b,[IH IN])/1000000,2),'r','LineWidth',2.5); hold on;
 box off;
 set(gca,'LineWidth',2,'tickdir','out','Fontsize',16,'xticklabel',{[]});
 title('Not isolated');
 
 subplot(3,1,2)
-plot(TM0(15:50),sum(YM0(15:50,[QH QN])/1000000,2),'k','LineWidth',2.5); hold on;
-plot(TM(15:50),sum(YM(15:50,[QH QN])/1000000,2),'m','LineWidth',2.5); hold on;
+plot(TM0(a:b),sum(YM0(a:b,[QH QN])/1000000,2),'k','LineWidth',2.5); hold on;
+plot(TM(a:b),sum(YM(a:b,[QH QN])/1000000,2),'m','LineWidth',2.5); hold on;
 box off;
 set(gca,'LineWidth',2,'tickdir','out','Fontsize',16,'xticklabel',{[]});
 title('Isolated');
 
 subplot(3,1,3)
-plot(TM0(15:50),sum(YM0(15:50,[H C])/1000000,2),'k','LineWidth',2.5); hold on;
-plot(TM(15:50),sum(YM(15:50,[H C])/1000000,2),'c','LineWidth',2.5);
+plot(TM0(a:b),sum(YM0(a:b,[H C])/1000000,2),'k','LineWidth',2.5); hold on;
+plot(TM(a:b),sum(YM(a:b,[H C])/1000000,2),'c','LineWidth',2.5);
 %hold on
 %plot(TM1,BedsR.*ones(size(TM1)),'color',[0 0.7 0],'LineWidth',2);
 %legend({'Hospitalized','Threshold'});

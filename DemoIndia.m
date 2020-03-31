@@ -45,7 +45,7 @@ gg=find(AA==Amin(end));
 hh=find(AA==80);
 F80indx{ii+1}=[gg:(hh-1)];
 
-if lockdown == 0
+if lockdown ==0
     MFull = Contacts.All;
 else
     MFull = Contacts.Home;
