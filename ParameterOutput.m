@@ -1,30 +1,36 @@
-function [beta,sigma,tau,M,M2,gamma,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,lockdown)
+function [beta,kA,kM,sigma,tau,M,M2,gamma,a,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,lockdown)
 %% PARAMETEROUTPUT returns the parameters based on the number of age classes
 %specified in the model
 % Input
 % Amin - The minimum age of the different classes
 % pd - probability of death in hospital
 % Output
-%beta - probability of infection
-%sigma - Rate from infection to symptoms
-%tau - Contact tracing rate
-%M - contact matrix (Size: AxA)
-%M2 - contact matrix home (Size: AxA)
+%beta  - probability of infection
+%sigma - rate from infection to symptoms
+%kA    - relativity infectivity of asymptomatic infections
+%kM    - relativity infectivity of mild infections
+%tau   - contact tracing rate
+%M     - contact matrix (Size: AxA)
+%M2    - contact matrix home (Size: AxA)
 %gamma - rate to recovery symptomatic individual
-%q - rate percentage of unvaccinated syptomatic case self-quaratine
-%h - rate percentage of unvaccinated symptatic case being hospitalized
+%a     - proportion of asymptomatic infections
+%q     - rate percentage of unvaccinated syptomatic case self-quaratine
+%h     - rate percentage of unvaccinated symptatic case being hospitalized
 %delta - hospitalization rate
-%mh - rate percentage for mortality in hospital
-%mueH - mortality rate in hospital
-%psiH - recover rate from hosptial
-%mc - rate percentage for mortality in ICU
-%mueC - mortality rate in ICU
-%psiC - recover rate from ICU
-%P -Population size
+%mh    - rate percentage for mortality in hospital
+%mueH  - mortality rate in hospital
+%psiH  - recover rate from hosptial
+%mc    - rate percentage for mortality in ICU
+%mueC  - mortality rate in ICU
+%psiC  - recover rate from ICU
+%P     -Population size
 %% Paramter specification
+kA = 0.5;
+kM = 0.5;
 sigma=1/4;
 tau=1/2;
 gamma=1/(2*(7.5-4));
+a = 0.2;
 q=0.05;
 f=0.05;
 h=[0.02075, 0.02140, 0.025, 0.03885]';
