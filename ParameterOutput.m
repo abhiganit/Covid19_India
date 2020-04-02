@@ -23,18 +23,18 @@ function [beta,kA,kM,sigma,tau,M,M2,gamma,a,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,p
 %mc    - rate percentage for mortality in ICU
 %mueC  - mortality rate in ICU
 %psiC  - recover rate from ICU
-%P     -Population size
+%P     - population size
 %% Paramter specification
-kA = 0.5;
-kM = 0.5;
-sigma=1/4;
+kA = 0.55;
+kM = 0.55;
+sigma=1/5.2; %1/4
 tau=1/2;
-gamma=1/(2*(7.5-4));
-a = 0.2;
+gamma=1/4.6; %1/(2*(7.5-4));
+a = 0.28;
 q=0.05;
 f=0.05;
-h=[0.02075, 0.02140, 0.025, 0.03885]';
-c=[0.0129, 0.03875, 0.0705, 0.15]';
+h=[0.025, 0.32, 0.32, 0.64]'; %updated
+c=[0.014, 0.042, 0.075, 0.15]'; %updated
 delta=1/3.5;
 mh= 0.2296;
 mueH = 1/9.7;
@@ -43,5 +43,5 @@ mc= 0.1396;
 mueC= 1/7;
 psiC= 1/13.25;
 [M,M2,P]=DemoIndia(Amin,State,lockdown);
-beta=CalcR0(R0E,P,sigma,h,gamma,delta,M);
+beta=CalcR0(R0E,P,sigma,h,gamma,delta,M,kM,kA,a);
 end

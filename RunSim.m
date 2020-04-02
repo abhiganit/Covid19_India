@@ -5,14 +5,15 @@ close all;
 Amin=[0 20 50 65];
 A=length(Amin);
 % Reproduction number (Change this to assume different R0)
-R0E=1.9;
+R0E=2;
 % State to run
 State = 'India';
 
 %% Set up initial conditions
 % Get parameters
 [beta,kA,kM,sigma,tau,M,M2,gamma,a,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P]=ParameterOutput(Amin,R0E,State,0);
-noi = 1;              % Number of infections seeding infection
+
+noi = 5;              % Number of infections seeding infection
 IC=zeros(10*A,1);     % Initialzing initial conditions
 IC(1:A)=P;            % Susceptible population
 IC(2)=IC(2)-noi;      % Seeding infections in age-group 2
