@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Covid-19 in India</title>
-<!-- 2020-04-02 Thu 00:01 -->
+<!-- 2020-04-02 Thu 01:42 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Abhishek Pandey" />
@@ -192,11 +192,34 @@ for the JavaScript code in this tag.
 <h2 id="sec-2"><span class="section-number-2">2</span> Model  <a id="Model" name="Model"></a></h2>
 <div class="outline-text-2" id="text-2">
 <p>
-We developed a mathematical to model for COVID-19 transmission in India
+We developed an age-structured SEIR-type model for COVID-19
+transmission in India to estimate spread of CoVID-19 infections in
+each state of India. We stratify the population into four age-groups:
+0-19, 20-49, 50-64 and 65+ years of age using current population
+estimates (ref) and age-distribution from last census (ref). Contact
+patterns between different age-groups is informed by estimates for
+contact patterns in India (ref). The model is also stratified into
+compartments based on natural history of disease as well as
+interventions. After a susceptible individual (\(S\)) acquires
+infection, it remains in incubation period (\(E\)) for an average of 5.2
+days. We assume that a person is not infectious during their
+incubation period. Following incubation period, an individual either
+remains asymptomatic (\(I_A\)) or develops symptoms. A proportion of
+symptomatic individuals (\((1-q)\)) only develop mild
+symptoms. Symptomatic individuals with mild symptoms (\(I_N\),\(Q_N\)) do
+not need hospitalization and recover on an average of \(1/\gamma\)
+days. Individuals with mild or severe symptoms both can either be
+isolated immediately after developing symptoms (\(E\)-&gt;\(Q_N\),\(E\)-&gt;\(Q_H\))
+or can be isolated later (\(I_N\)-&gt;\(Q_N\),\(I_H\)-&gt;\(Q_H\)) based on the contact
+tracing rate (&tau;) Symptomatic individuals with severe symptoms
+(\(I_H\),\(Q_H\)) either need just hospitalization(\(H\)) or also need to be
+in ICU (\(C\)). Those hospitalized (\(H\),\(C\)) either recover or die.
 </p>
 
+
+
 <div id="fig:ModelDiagram" class="figure">
-<p><img src="ModelDiagram.png" alt="ModelDiagram.png" height="700px" width="700px" />
+<p><img src="ModelDiagram.png" alt="ModelDiagram.png" align="right" height="700px" width="700px" />
 </p>
 </div>
 </div>
@@ -232,27 +255,27 @@ We developed a mathematical to model for COVID-19 transmission in India
 </tr>
 
 <tr>
-<td class="left">\(IA\)</td>
+<td class="left">\(I_A\)</td>
 <td class="left">Asymptomatic infections</td>
 </tr>
 
 <tr>
-<td class="left">\(IH\)</td>
+<td class="left">\(I_H\)</td>
 <td class="left">Symptomatic severe infections (not isolated)</td>
 </tr>
 
 <tr>
-<td class="left">\(IN\)</td>
+<td class="left">\(I_N\)</td>
 <td class="left">Symptomatic mild infections (not isolated)</td>
 </tr>
 
 <tr>
-<td class="left">\(QH\)</td>
+<td class="left">\(Q_H\)</td>
 <td class="left">Symptomatic severe infections (isolated)</td>
 </tr>
 
 <tr>
-<td class="left">\(QN\)</td>
+<td class="left">\(Q_N\)</td>
 <td class="left">Symptomatic mild infections (not isolated)</td>
 </tr>
 
@@ -516,7 +539,19 @@ they be even less infectious?
 </li>
 <li><code>[X]</code> Update R0 calculation
 </li>
-<li><code>[&#xa0;]</code> Make new figures
+<li><code>[&#xa0;]</code> Figures and data
+<ul class="org-ul">
+<li><code>[&#xa0;]</code> All cases together
+</li>
+<li><code>[&#xa0;]</code> All hospitalization
+</li>
+<li><code>[&#xa0;]</code> All death
+</li>
+<li><code>[&#xa0;]</code> Cumulative numbers?
+</li>
+<li><code>[&#xa0;]</code> Full solutions
+</li>
+</ul>
 </li>
 <li><code>[&#xa0;]</code> Improve readability of code
 </li>
@@ -539,7 +574,7 @@ they be even less infectious?
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Abhishek Pandey</p>
-<p class="date">Created: 2020-04-02 Thu 00:01</p>
+<p class="date">Created: 2020-04-02 Thu 01:42</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

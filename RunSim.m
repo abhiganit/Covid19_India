@@ -75,49 +75,63 @@ C= 8*A+[1:A]; % Need ICU
 D= 9*A+[1:A]; % Deaths
 
 %% Plots
-
-a = 1; b = 700;
-subplot(2,1,1)
-plot(TM0(a:b),sum(YM0(a:b,[IA IH IN QH QN])/1000000,2),'k','LineWidth',2.5); hold on;
-plot(TM(a:b),sum(YM(a:b,[IA IH IN QH QN])/1000000,2),'r', ...
+fig = figure('position',[300,200,1600,700])
+st = 1; en = 365;
+stl = 15; enl = 50;
+subplot(2,3,1)
+plot(TM0(st:en),sum(YM0(st:en,[IA IH IN QH QN])/1000000,2),'k', ...
+     'LineWidth',2.5); hold on;
+plot(TM(st:en),sum(YM(st:en,[IA IH IN QH QN])/1000000,2),'r', ...
      'LineWidth',2.5);hold on;
-a = 15; b = 50;
-subplot(2,1,2)
-plot(TM0(a:b),sum(YM0(a:b,[IA IH IN QH QN]),2),'k','LineWidth',2.5); hold on;
-plot(TM(a:b),sum(YM(a:b,[IA IH IN QH QN]),2),'r', ...
-     'LineWidth',2.5);
+box off;
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
+title('Infections');
+ylabel('Cases(in millions)','Fontsize',16);
+subplot(2,3,2)
+plot(TM0(st:en),sum(YM0(st:en,[IH QH])/1000000,2),'k','LineWidth',2.5); hold on;
+plot(TM(st:en),sum(YM(st:en,[IH QH])/1000000,2),'r', ...
+     'LineWidth',2.5);hold on;
+box off;
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
+title('Need Hospitalization');
+
+subplot(2,3,3)
+plot(TM0(st:en),sum(YM0(st:en,[D])/1000000,2),'k','LineWidth',2.5); hold on;
+plot(TM(st:en),sum(YM(st:en,[D])/1000000,2),'r', ...
+     'LineWidth',2.5);hold on;
+title('Deaths');
+box off;
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
+
+subplot(2,3,4)
+plot(TM0(stl:enl),sum(YM0(stl:enl,[IA IH IN QH QN]),2),'k','LineWidth',2.5); hold on;
+plot(TM(stl:enl),sum(YM(stl:enl,[IA IH IN QH QN]),2),'r', ...
+     'LineWidth',2.5);hold on;
+
+box off;
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
+ylabel('Cases','Fontsize',16);
+subplot(2,3,5)
+plot(TM0(stl:enl),sum(YM0(stl:enl,[IH QH]),2),'k','LineWidth',2.5); hold on;
+plot(TM(stl:enl),sum(YM(stl:enl,[IH QH]),2),'b', 'LineWidth',2.5);hold on;
+
+box off;
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
+
+subplot(2,3,6)
+plot(TM0(stl:enl),sum(YM0(stl:enl,[D]),2),'k','LineWidth',2.5); hold on;
+plot(TM(stl:enl),sum(YM(stl:enl,[D]),2),'c', ...
+     'LineWidth',2.5);hold on;
+
+box off;
+set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
+
+[ax,h] = suplabel('Days','x');
+set(h,'FontSize',18);
+
+
+
 hold off
 
-
-% fig = figure('position',[300,200,900,1200])
-% a = 1; b = 700;
-% subplot(3,1,1);
-% plot(TM0(a:b),sum(YM0(a:b,[IH IN])/1000000,2),'k','LineWidth',2.5); hold on;
-% plot(TM(a:b),sum(YM(a:b,[IH IN])/1000000,2),'r','LineWidth',2.5); hold on;
-% box off;
-% set(gca,'LineWidth',2,'tickdir','out','Fontsize',16,'xticklabel',{[]});
-% title('Not isolated');
-
-% subplot(3,1,2)
-% plot(TM0(a:b),sum(YM0(a:b,[QH QN])/1000000,2),'k','LineWidth',2.5); hold on;
-% plot(TM(a:b),sum(YM(a:b,[QH QN])/1000000,2),'m','LineWidth',2.5); hold on;
-% box off;
-% set(gca,'LineWidth',2,'tickdir','out','Fontsize',16,'xticklabel',{[]});
-% title('Isolated');
-
-% subplot(3,1,3)
-% plot(TM0(a:b),sum(YM0(a:b,[H C])/1000000,2),'k','LineWidth',2.5); hold on;
-% plot(TM(a:b),sum(YM(a:b,[H C])/1000000,2),'c','LineWidth',2.5);
-% %hold on
-% %plot(TM1,BedsR.*ones(size(TM1)),'color',[0 0.7 0],'LineWidth',2);
-% %legend({'Hospitalized','Threshold'});
-% %legend box off;
-% box off;
-% xlabel('Day','Fontsize',18);
-% set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
-% title('Need Hospitalzation');
-
-% [ax,h] = suplabel('Cases (in millions)','y');
-% set(h,'FontSize',18);
 
 print(State,'-dpng')
