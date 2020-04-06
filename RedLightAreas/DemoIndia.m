@@ -47,14 +47,8 @@ F80indx{ii+1}=[gg:(hh-1)];
 
 if lockdown ==0
     MFull = Contacts.All;
-elseif lockdown == 1
+else
     MFull = Contacts.Home;
-elseif lockdown == 2
-    MFull = Contacts.All - Contacts.School;
-elseif lockdown == 3
-    MFull = Contacts.All - 0.5*Contacts.Work;
-elseif lockdown == 4
-    MFull = Contacts.All - Contacts.School - 0.5*Contacts.Work;
 end
 M2Full = Contacts.Home;
 
