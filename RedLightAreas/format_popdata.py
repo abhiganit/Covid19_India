@@ -31,20 +31,30 @@ df.columns = temp
 df['TELANGANA'] = df['ANDHRA PRADESH'] # Assign same weights to Telangana as Andhra Pradesh
 
 # Age-distribution for the four regions
-df = df[['NCT OF DELHI','NCT OF DELHI',
-         'WEST BENGAL','WEST BENGAL',
-         'MAHARASHTRA','MAHARASHTRA',
-         'MAHARASHTRA','MAHARASHTRA']]
+# df = df[['NCT OF DELHI','NCT OF DELHI',
+#          'WEST BENGAL','WEST BENGAL',
+#          'MAHARASHTRA','MAHARASHTRA',
+#          'MAHARASHTRA','MAHARASHTRA']]
+
+df = df[['India','India','India','India','India',
+         'India','India','India','India','India']]
 # Creating an excel with names of states
 # current population in Delhi, Delhi_RL, Kolkata,Kolkata_RL, Mumbai,Mumbai_RL, Nagpur,Nagpur_RL
-pop = [10927986,1000,4631392,1000,12691836,1000,2228018,1000];
-
+#pop = [10927986,1000,4631392,1000,12691836,1000,2228018,1000];
+pop = [20411000,5471.4,
+       2893000,2310,
+       19500000,4048,
+       14850000,16000,
+       6629000,6345];
 current_population = pd.Series(pop,index= df.columns)
 
 # Save age-distributed data as excel
 adf = df*current_population
-adf.columns = ['Delhi','Delhi_RL','Kolkata','Kolkata_RL',
-               'Mumbai','Mumbai_RL','Nagpur','Nagpur_RL']
+#adf.columns = ['Delhi','Delhi_RL','Kolkata','Kolkata_RL',
+ #              'Mumbai','Mumbai_RL','Nagpur','Nagpur_RL']
+adf.columns = ['RLAC1','RLA1','RLAC2','RLA2',
+               'RLAC3','RLA3','RLAC4','RLA4',
+               'RLAC5','RLA5']
 
 
 adf.to_excel('Population_distribution.xlsx')

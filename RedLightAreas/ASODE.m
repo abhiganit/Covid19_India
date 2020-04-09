@@ -1,4 +1,4 @@
-function dxdt = ASODE(t,x,beta,kA,kM,sigma,tau,M,M2,gamma,a,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P,A,Ss,CM)
+function dxdt = ASODE(t,x,beta,kA,kM,sigma,tau,M,M2,gamma,a,q,h,f,c,delta,mh,mueH,psiH,mc,mueC,psiC,P,A,Ss,CM,tm)
 %% dxdt = ASODE()
 % System of ODE to run the model for vaccination and contact tracing
 %% Input parameters
@@ -65,7 +65,7 @@ c = repmat(c,Ss,1);
 
 % Intra-region probability of infections will be \beta whereas
 % inter-region probability of infection will be 1.
-B = [beta,1;1,beta];
+B = beta*[1,tm;tm,1]; %[beta,5*beta;5*beta,beta];
 B = repelem(B,A,A);
 M = B.*M;
 M2 = beta.*M2;
