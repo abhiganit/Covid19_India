@@ -38,3 +38,33 @@ current_population.set_index('State',inplace=True)
 # Save age-distributed data as excel
 adf = df*current_population.Population
 adf.to_excel('Population_distribution.xlsx')
+
+
+
+# calculation for spatial matrix
+air = pd.read_excel('States_connection.xlsx','Air')
+rail = pd.read_excel('States_connection.xlsx','Rail')
+space = pd.read_excel('States_connection.xlsx','Spatial')
+
+# Probability of travel:
+pT = 0.05;
+pA = 0.05;
+pR = 0.45;
+pS = 0.5;
+
+# Adjusting matrices for outward travels
+temp = air.sum(axis=1) - np.diag(air)
+air = air.div(temp,axis=1)
+air.fillna(0,inplace=True)
+temp = rail.sum(axis=1) - np.diag(rail)
+rail = rail.div(temp,axis=1)
+rail.fillna(0,inplace=True)
+temp = space.sum(axis=1) - np.diag(space)
+space = space.div(temp,axis=1)
+space.fillna(0,inplace=True)
+
+# spatial connection matrix
+S = pT*(pA*air+pR*rail+pS*space)
+temp = np.fill_diagonal(S.values,1)
+
+pT*(pA*air.iloc[0]['Jammu and Kashmir']+ pR*rail.iloc[0]['Jammu and Kashmir'] + pS*space.iloc[0]['Jammu and Kashmir'])

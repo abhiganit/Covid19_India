@@ -28,7 +28,10 @@ end
 Ss = length(States);
 
 % Incorporate connectivity between states among general contact patterns
-CM = eye(Ss);
+load spatial
+sm = S;
+clear S
+CM = sm; %eye(Ss);
 CM = repelem(CM,A,A);
 M = repmat(M,Ss);
 M = CM.*M;
@@ -36,7 +39,12 @@ M = CM.*M;
 M2 = kron(eye(Ss),M2);
 
 
-noi = ones(1,Ss);% Number of infections seeding infection
+% Which states to seed in? (Delhi, Maharashtra, Kerala)
+idx = find(contains(States,{'NCTOFDELHI','MAHARASHTRA','KERALA'}));
+%noi = ones(1,Ss);% Number of infections seeding infection
+                 %noi(1,8) = 5;
+noi = zeros(1,Ss);% Number of infections seeding infection
+noi(idx) =1;
                  %noi(1,8) = 5;
 IC=zeros(10*A*Ss,1);        % Initialzing initial conditions
 IC(1:A*Ss)=Pop;             % Susceptible population
@@ -83,7 +91,7 @@ tal = 324;
 
 % Continue school closure (lockdown=2)
 [M,M2,Popt] = DemoIndia(Amin,State,2);
-CM = eye(Ss);
+CM = sm; %eye(Ss);
 CM = repelem(CM,A,A);
 M = repmat(M,Ss);
 M = CM.*M;
@@ -97,7 +105,7 @@ tal = 324;
 
 % Continue Work from home (for 50% of workforce) (lockdown=3)
 [M,M2,Popt] = DemoIndia(Amin,State,3);
-CM = eye(Ss);
+CM = sm; %eye(Ss);
 CM = repelem(CM,A,A);
 M = repmat(M,Ss);
 M = CM.*M;
@@ -112,7 +120,7 @@ tal = 324;
 
 % Continue school closure and work from home for 50% of workforce (lockdown=4)
 [M,M2,Popt] = DemoIndia(Amin,State,4);
-CM = eye(Ss);
+CM = sm; %eye(Ss);
 CM = repelem(CM,A,A);
 M = repmat(M,Ss);
 M = CM.*M;
@@ -154,12 +162,12 @@ D= 9*A*Ss+[1:A*Ss]; % Deaths
 
 %% Plots
 close all;
-rang = {'#636363','#fdbb84','#bf5b17','#beaed4','#386cb0'}
+rang = {'#636363','#fdbb84','#bf5b17','#beaed4','#386cb0'};
 st = 1; en = 365;
 stl = 1; enl = 50;
 
 % Impact of lockdown
-fig1 = figure('position',[300,200,800,900])
+fig1 = figure('position',[300,200,800,900]);
 
 % total cases
 subplot(3,1,1)
@@ -172,7 +180,7 @@ box off;
 set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
 
 lg = legend('No lockdown','With lockdown')
-lg.Fontsize = 16
+lg.FontSize = 16
 lg.Location = 'northwest'
 legend boxoff;
 
@@ -210,7 +218,7 @@ print('Lockdown','-dpng')
 
 close all
 % Total infections, Need hospitalization, Dealths
-fig2 = figure('position',[300,200,800,900])
+fig2 = figure('position',[300,200,800,900]);
 
 % CASES
 subplot(3,1,1)
@@ -239,9 +247,9 @@ set(gca,'LineWidth',2,'tickdir','out','Fontsize',16);
 title('Infections');
 
 lg = legend('No lockdown','Return to status quo','School closure (SC)',...
-            'Work from home (WFH)','Both SC & WFH')
-lg.Fontsize = 16
-lg.Location = 'northwest'
+            'Work from home (WFH)','Both SC & WFH');
+lg.FontSize = 16;
+lg.Location = 'northwest';
 legend boxoff;
 
 
