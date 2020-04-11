@@ -67,4 +67,4 @@ space.fillna(0,inplace=True)
 S = pT*(pA*air+pR*rail+pS*space)
 temp = np.fill_diagonal(S.values,1)
 
-pT*(pA*air.iloc[0]['Jammu and Kashmir']+ pR*rail.iloc[0]['Jammu and Kashmir'] + pS*space.iloc[0]['Jammu and Kashmir'])
+S.to_excel('connectivity_matrix.xlsx')
